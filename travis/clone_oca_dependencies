@@ -27,6 +27,7 @@ The expected format for oca_dependencies.txt:
     the branch
 """
 from __future__ import print_function
+from string import Template
 import sys
 import os
 import os.path as osp
@@ -43,6 +44,7 @@ def parse_depfile(depfile, owner='OCA'):
         line = line.strip()
         if not line or line.startswith('#'):
             continue
+        line = Template(line).substitute(os.environ)
         parts = line.split()
         num_parts = len(parts)
         repo, url, branch, commit = [
